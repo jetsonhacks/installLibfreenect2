@@ -15,3 +15,6 @@ mkdir build && cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/freenect2
 make
 make install
+cd ..
+sudo cp platform/linux/udev/90-kinect2.rules /etc/udev/rules.d/90-kinect2.rules
+/bin/echo -e "\e[1;32mFinished.\e[0m"
