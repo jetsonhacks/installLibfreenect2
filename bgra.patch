@@ -1,0 +1,37 @@
+diff --git a/examples/Protonect.cpp b/home/ubuntu/installLibfreenect2/Protonect.cpp
+index b4e2e61..ab7907d 100644
+--- a/examples/Protonect.cpp
++++ b/home/ubuntu/installLibfreenect2/Protonect.cpp
+@@ -29,6 +29,7 @@
+ #include <iostream>
+ #include <cstdlib>
+ #include <signal.h>
++#include <string.h> // memcpy
+ 
+ /// [headers]
+ #include <libfreenect2/libfreenect2.hpp>
+@@ -336,6 +337,24 @@ int main(int argc, char *argv[])
+       return -1;
+     }
+     libfreenect2::Frame *rgb = frames[libfreenect2::Frame::Color];
++    // On the Jetson, the hardware decoder produces RGBA
++    // The viewer uses BGRA, this is the brain dead approach to conversion
++    unsigned char *convertedData = (unsigned char*) malloc(rgb->height*rgb->width*rgb->bytes_per_pixel) ;
++    int offset = 0;
++    for (unsigned int y = 0 ; y < rgb->height; y++) {
++        for (unsigned int x=0 ; x < rgb->width; x++) {
++            convertedData[offset] = rgb->data[offset+2] ;
++            convertedData[offset+1] = rgb->data[offset+1];
++            convertedData[offset+2] = rgb->data[offset+0];
++            convertedData[offset+3] = rgb->data[offset+3];
++            offset += 4;
++        }
++    }
++    memcpy(rgb->data,convertedData,rgb->height*rgb->width*rgb->bytes_per_pixel);
++   // Free the data somewhere
++    free(convertedData) ;
++
++
+     libfreenect2::Frame *ir = frames[libfreenect2::Frame::Ir];
+     libfreenect2::Frame *depth = frames[libfreenect2::Frame::Depth];
+ /// [loop start]
