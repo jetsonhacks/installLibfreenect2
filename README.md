@@ -1,13 +1,13 @@
 # installLibfreenect2
 Install libfreenect2 on a Jetson TX1 Development Kit. libfreenect2 is an open source driver for Microsoft Kinect V2.
 
-This repository constains a convenience script to install the prerequisites for building libfreenect and building the library.
+This repository contains a convenience script to install the prerequisites for building libfreenect and then build the library.
 
 To run the convenience script:
 
 $ ./installLibfreenect2.sh
 
-When installation is complete, the example 'Protonect' will be in the ~/libfreenect2/build/bin directory.
+When installation is complete, the example app 'Protonect' will be in the ~/libfreenect2/build/bin directory.
 
 <b>Note:</b> There is a difference between the stock libfreenect2 library and the one being installed here. This installation adds a patch to the the example "Protonect.cpp" file. The JPEG decompressor on the Jetson produces RGBA format, where as the viewer consumes BGRA format. The patch adds a simplistic algorithm to rearrange the bytes appropriately. 
 
