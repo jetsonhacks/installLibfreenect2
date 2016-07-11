@@ -14,16 +14,27 @@ ARCH="$(uname -m)"
 echo "Machine Architecture: " $ARCH
 if [ "$ARCH" = "aarch64" ] ; then
  SAVEDIR=$PWD
- cd /usr/lib/aarch64-linux-gnu
+ LIBDIR=""
+ if [ -d "/usr/lib/arm-linux-gnueabihf" ] ; then
+  LIBDIR="/usr/lib/arm-linux-gnueabihf"
+ else
+  if [ -d "/usr/lib/aarch64-linux-gnu" ] ; then
+    LIBDIR="/usr/lib/aarch64-linux-gnu"
+  fi
+ fi
+echo $LIBDIR
+
+ cd $LIBDIR
  sudo rm libGL.so
- sudo ln -s /usr/lib/aarch64-linux-gnu/tegra/libGL.so libGL.so
+ sudo ln -s $LIBDIR/tegra/libGL.so libGL.so
  cd $SAVEDIR
 fi
 
 cd ..
-if [ "$ARCH" != "aarch64" ] ; then
+if [ "$ARCH" != "aarch64" ] ; 
+ # Uncomment this patch line if using version 23.X
  # 32 bit needs a patch for RGBA to BGRA
- patch -p 1 -i $PATCHDIR/bgra.patch 
+ # patch -p 1 -i $PATCHDIR/bgra.patch 
 fi
 
 mkdir build && cd build
