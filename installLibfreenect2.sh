@@ -21,7 +21,11 @@ if [ "$ARCH" = "aarch64" ] ; then
 fi
 
 cd ..
-patch -p 1 -i $PATCHDIR/bgra.patch 
+if [ "$ARCH" != "aarch64" ] ; then
+ # 32 bit needs a patch for RGBA to BGRA
+ patch -p 1 -i $PATCHDIR/bgra.patch 
+fi
+
 mkdir build && cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/freenect2
 make
