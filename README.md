@@ -12,7 +12,7 @@ When installation is complete, the example app 'Protonect' will be in the ~/libf
 <h2>Notes</h2>
 
 <h3>USB firmware</h3>
-In the current 32 bit (L4T 23.2) and 64 bit (L4T 24.1) releases (as of July 10, 2016) there is an issue in the usb firmware which causes transfer failures with the Kinect V2. NVIDIA has made a firmware patch available. See: 
+In the current L4T 23.2 and L4T 24.1 releases (as of July 10, 2016) there is an issue in the usb firmware which causes transfer failures with the Kinect V2. NVIDIA has made a firmware patch available. See: 
 
 https://devtalk.nvidia.com/default/topic/919354/jetson-tx1/usb-3-transfer-failures/post/4899105/#4899105
 
