@@ -31,7 +31,7 @@ echo $LIBDIR
 fi
 
 cd ..
-if [ "$ARCH" != "aarch64" ] then ; 
+if [ "$ARCH" != "aarch64" ] ; then
  echo "No Patch applied"
  # Uncomment this patch line if using version 23.X
  # 32 bit needs a patch for RGBA to BGRA
