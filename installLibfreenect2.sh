@@ -9,6 +9,17 @@ sudo dpkg -i debs/libusb*deb
 sudo apt-get install libturbojpeg libjpeg-turbo8-dev
 sudo dpkg -i debs/libglfw3*deb; sudo apt-get install -f; sudo apt-get install libgl1-mesa-dri-lts-vivid -y
 # Make and Install libfreenect2
+# Mesa links libGL.so incorrectly on Arm v8 24.1 7-10-15
+ARCH="$(uname -m)"
+echo "Machine Architecture: " $ARCH
+if [ "$ARCH" = "aarch64" ] ; then
+ SAVEDIR=$PWD
+ cd /usr/lib/aarch64-linux-gnu
+ sudo rm libGL.so
+ sudo ln -s /usr/lib/aarch64-linux-gnu/tegra/libGL.so libGL.so
+ cd $SAVEDIR
+fi
+
 cd ..
 patch -p 1 -i $PATCHDIR/bgra.patch 
 mkdir build && cd build
