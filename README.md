@@ -23,11 +23,11 @@ $ ./firmwarePatch.sh
 which will copy the firmware file to the correct directory.
 
 <h3>RGBA→BGRA Patch</h3>
-On a 32 bit installation (currently L4T 23.2), there is a difference between the stock libfreenect2 library and the one being installed here. This installation adds a patch to the the example "Protonect.cpp" file. The JPEG decompressor on the Jetson produces RGBA format, where as the viewer consumes BGRA format. The patch adds a simplistic algorithm to rearrange the bytes appropriately. 
+On L4T 23.X versions (currently L4T 23.2), there is a difference between the stock libfreenect2 library and the one being installed here. This installation needs to add a patch to the the example "Protonect.cpp" file. The JPEG decompressor on the Jetson produces RGBA format, where as the viewer consumes BGRA format. The patch adds a simplistic algorithm to rearrange the bytes appropriately. To install the patch, uncomment the patch command line in installLibfreenect2.sh
 
-If you plan to use this library in production 32 bit code, your application should consider writing specialized code to do the RGBA→BGRA conversion more efficiently.
+If you plan to use this library in production L4T 23.X code, your application should consider writing specialized code to do the RGBA→BGRA conversion more efficiently.
 
-For 64 bit (currently L4T 24.1), there is no patch applied as the JPEG decompressor produces BGRA format natively.
+For L4T 24.1, there is no patch applied as the JPEG decompressor produces BGRA format natively.
 
 <b>Note:</b> The last commit tested on the libfreenect2 library on Github was 83f88b4c09f0b00724ae65785abcd4f3eeb79f93
 
