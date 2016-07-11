@@ -9,9 +9,25 @@ $ ./installLibfreenect2.sh
 
 When installation is complete, the example app 'Protonect' will be in the ~/libfreenect2/build/bin directory.
 
-<b>Note:</b> There is a difference between the stock libfreenect2 library and the one being installed here. This installation adds a patch to the the example "Protonect.cpp" file. The JPEG decompressor on the Jetson produces RGBA format, where as the viewer consumes BGRA format. The patch adds a simplistic algorithm to rearrange the bytes appropriately. 
+<h2>Notes</h2>
 
-If you plan to use this library in production code, your application should consider writing specialized code to do the RGBA→BGRA conversion more efficiently
+<h3>USB firmware</h3>
+In the current 32 bit (L4T 23.2) and 64 bit (L4T 24.1) releases (as of July 10, 2016) there is an issue in the usb firmware which causes transfer failures with the Kinect V2. NVIDIA has made a firmware patch available. See: 
+
+https://devtalk.nvidia.com/default/topic/919354/jetson-tx1/usb-3-transfer-failures/post/4899105/#4899105
+
+As a convenience, that patch is available from this repository, execute:
+
+$ ./firmwarePatch.sh
+
+which will copy the firmware file to the correct directory.
+
+<h3>RGBA→BGRA Patch</h3>
+On a 32 bit installation (currently L4T 23.2), there is a difference between the stock libfreenect2 library and the one being installed here. This installation adds a patch to the the example "Protonect.cpp" file. The JPEG decompressor on the Jetson produces RGBA format, where as the viewer consumes BGRA format. The patch adds a simplistic algorithm to rearrange the bytes appropriately. 
+
+If you plan to use this library in production 32 bit code, your application should consider writing specialized code to do the RGBA→BGRA conversion more efficiently.
+
+For 64 bit (currently L4T 24.1), there is no patch applied as the JPEG decompressor produces BGRA format natively.
 
 <b>Note:</b> The last commit tested on the libfreenect2 library on Github was 83f88b4c09f0b00724ae65785abcd4f3eeb79f93
 
