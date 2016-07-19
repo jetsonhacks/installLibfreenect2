@@ -29,6 +29,14 @@ If you plan to use this library in production L4T 23.X code, your application sh
 
 For L4T 24.1, there is no patch applied as the JPEG decompressor produces BGRA format natively.
 
+<h3>64 bit</h3>
+As of this writing (July, 2016) there is a softlink issue with libGL.so. Typically you'll see this issue as:
+
+undefined reference to `drm<Errro>'
+
+In this case, apply the libGLFix.sh script.
+
+
 <b>Note:</b> The last commit tested on the libfreenect2 library on Github was 83f88b4c09f0b00724ae65785abcd4f3eeb79f93
 
 libfreenect2 is at: https://github.com/OpenKinect/libfreenect2
